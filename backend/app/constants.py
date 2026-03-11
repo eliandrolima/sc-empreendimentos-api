@@ -1,9 +1,9 @@
 SEGMENT_OPTIONS = [
     "Tecnologia",
-    "Comércio",
-    "Indústria",
-    "Serviços",
-    "Agronegócio",
+    "ComÃ©rcio",
+    "IndÃºstria",
+    "ServiÃ§os",
+    "AgronegÃ³cio",
 ]
 
 STATUS_OPTIONS = ["ativo", "inativo"]
