@@ -22,7 +22,7 @@ const fields = {
 let enterprises = [];
 
 form.addEventListener("submit", handleFormSubmit);
-cancelButton.addEventListener("click", resetFormState);
+cancelButton.addEventListener("click", handleCancelEdit);
 refreshButton.addEventListener("click", loadEnterprises);
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -37,7 +37,7 @@ async function loadEnterprises() {
         const result = await response.json();
 
         if (!response.ok || !result.success) {
-            throw new Error(formatApiMessage(result.message) || "Não foi possivel carregar os empreendimentos.");
+            throw new Error(formatApiMessage(result.message) || "Nao foi possivel carregar os empreendimentos.");
         }
 
         enterprises = Array.isArray(result.data) ? result.data : [];
@@ -45,7 +45,7 @@ async function loadEnterprises() {
     } catch (error) {
         enterprises = [];
         renderTable();
-        showFeedback(error.message || "Não foi possivel carregar os empreendimentos.", "error");
+        showFeedback(error.message || "Nao foi possivel carregar os empreendimentos.", "error");
     }
 }
 
@@ -71,19 +71,19 @@ async function handleFormSubmit(event) {
         const result = await response.json();
 
         if (!response.ok || !result.success) {
-            throw new Error(formatApiMessage(result.message) || "Não foi possivel salvar o empreendimento.");
+            throw new Error(formatApiMessage(result.message) || "Nao foi possivel salvar o empreendimento.");
         }
 
+        resetFormState();
         showFeedback(
             isUpdate
                 ? "Empreendimento atualizado com sucesso."
                 : "Empreendimento cadastrado com sucesso.",
             "success",
         );
-        resetFormState();
         await loadEnterprises();
     } catch (error) {
-        showFeedback(error.message || "Não foi possivel salvar o empreendimento.", "error");
+        showFeedback(error.message || "Nao foi possivel salvar o empreendimento.", "error");
     }
 }
 
@@ -100,7 +100,7 @@ async function handleDelete(enterpriseId) {
         const result = await response.json();
 
         if (!response.ok || !result.success) {
-            throw new Error(formatApiMessage(result.message) || "Não foi possivel excluir o empreendimento.");
+            throw new Error(formatApiMessage(result.message) || "Nao foi possivel excluir o empreendimento.");
         }
 
         if (enterpriseIdInput.value === enterpriseId) {
@@ -110,7 +110,7 @@ async function handleDelete(enterpriseId) {
         showFeedback("Empreendimento excluido com sucesso.", "success");
         await loadEnterprises();
     } catch (error) {
-        showFeedback(error.message || "Não foi possivel excluir o empreendimento.", "error");
+        showFeedback(error.message || "Nao foi possivel excluir o empreendimento.", "error");
     }
 }
 
@@ -133,6 +133,11 @@ function handleEdit(enterpriseId) {
     submitButton.textContent = "Atualizar empreendimento";
     cancelButton.classList.remove("hidden");
     window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function handleCancelEdit() {
+    resetFormState();
+    hideFeedback();
 }
 
 function resetFormState() {
@@ -231,15 +236,20 @@ function showFeedback(message, type) {
     feedbackElement.className = `feedback ${type}`;
 }
 
+function hideFeedback() {
+    feedbackElement.textContent = "";
+    feedbackElement.className = "feedback hidden";
+}
+
 function formatApiMessage(message) {
     const messages = {
-        "Enterprise not found": "Empreendimento não encontrado.",
-        "Invalid enterprise id": "Identificador de empreendimento inválido.",
+        "Enterprise not found": "Empreendimento nao encontrado.",
+        "Invalid enterprise id": "Identificador de empreendimento invalido.",
         "Field cannot be empty": "Preencha os campos obrigatorios.",
         "Segment cannot be empty": "Selecione um segmento.",
         "Status cannot be empty": "Selecione um status.",
-        "Invalid segment": "Selecione um segmento válido.",
-        "Invalid status": "Selecione um status válido.",
+        "Invalid segment": "Selecione um segmento valido.",
+        "Invalid status": "Selecione um status valido.",
         "At least one field must be provided": "Informe pelo menos um campo para atualizar.",
     };
 
