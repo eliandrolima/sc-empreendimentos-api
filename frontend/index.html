@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empreendimentos</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="panel">
+            <div class="panel-header">
+                <div>
+                    <h1>Empreendimentos Catarinenses</h1>
+                    <p>Interface simples para gerenciar os dados da API.</p>
+                </div>
+                <button id="refresh-button" type="button" class="secondary-button">Atualizar lista</button>
+            </div>
+
+            <div id="feedback" class="feedback hidden" role="alert"></div>
+
+            <form id="enterprise-form" class="enterprise-form">
+                <input type="hidden" id="enterprise-id">
+
+                <div class="form-grid">
+                    <label>
+                        Nome do empreendimento
+                        <input id="business_name" name="business_name" type="text" required>
+                    </label>
+
+                    <label>
+                        Nome do proprietário
+                        <input id="owner_name" name="owner_name" type="text" required>
+                    </label>
+
+                    <label>
+                        Cidade
+                        <input id="city" name="city" type="text" required>
+                    </label>
+
+                    <label>
+                        Segmento
+                        <select id="segment" name="segment" required>
+                            <option value="">Selecione</option>
+                            <option value="Tecnologia">Tecnologia</option>
+                            <option value="Com�rcio">Comércio</option>
+                            <option value="Ind�stria">Indústria</option>
+                            <option value="Servi�os">Serviços</option>
+                            <option value="Agroneg�cio">Agronegócio</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Contato
+                        <input id="contact" name="contact" type="text" required>
+                    </label>
+
+                    <label>
+                        Status
+                        <select id="status" name="status" required>
+                            <option value="">Selecione</option>
+                            <option value="ativo">ativo</option>
+                            <option value="inativo">inativo</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label class="description-field">
+                    Descrição
+                    <textarea id="description" name="description" rows="4" placeholder="Opcional"></textarea>
+                </label>
+
+                <div class="form-actions">
+                    <button id="submit-button" type="submit">Cadastrar empreendimento</button>
+                    <button id="cancel-button" type="button" class="secondary-button hidden">Cancelar edição</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="table-header">
+                <h2>Empreendimentos cadastrados</h2>
+                <span id="table-count" class="table-count">0 itens</span>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Empreendimento</th>
+                            <th>Proprietário</th>
+                            <th>Cidade</th>
+                            <th>Segmento</th>
+                            <th>Contato</th>
+                            <th>Status</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enterprise-table-body">
+                        <tr>
+                            <td colspan="8" class="empty-state">Carregando empreendimentos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>
