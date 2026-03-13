@@ -189,4 +189,4 @@ Resposta esperada:
 - Criar pipeline de deploy e configuração de ambiente para produção
 
 ## Vídeo pitch
-[Adicionar link do vídeo aqui]
+https://youtu.be/h-Cj-EIitB0
